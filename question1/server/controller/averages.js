@@ -1,6 +1,8 @@
+const Numbers = require('../models/Numbers');
+
 async function getAverages(req, res) {
     try {
-        const averages = await Number.find({});
+        const averages = await Numbers.find({});
         res.status(200).json(averages);
     } catch (error) {
         console.error('Error fetching averages:', error);
@@ -13,7 +15,7 @@ async function getAverages(req, res) {
 
 async function numberpost(req,res) {
     try{
-        const [number] = req.body.numbers;
+        const {number} = req.body;
         if(!Array.isArray(number) || number.length === 0) {
             return res.status(400).json({ 
                 error: 'Invalid input, expected an array of numbers' 
@@ -22,10 +24,10 @@ async function numberpost(req,res) {
         const sum=number.reduce((acc, num) => acc + num, 0);
         const average = sum / number.length;
 
-        const updatedNumer = await Number.create({number: number, average: average});
+        const updatedNumer = await Numbers.create({number, average: average});
 
         res.status(200).json({ 
-            average: average 
+            average: updatedNumer
         });
     }
      catch (error) {

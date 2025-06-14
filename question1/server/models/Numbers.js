@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const number= new mongoose.Schema({
     number: {
-        type: Number,
+        type: [Number],
         required: true
     },
     average: {
@@ -10,4 +10,4 @@ const number= new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('Number', number);
+module.exports = mongoose.model('Numbers', number);
